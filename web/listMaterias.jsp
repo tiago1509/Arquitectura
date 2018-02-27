@@ -21,6 +21,8 @@
           
            |${a.code}| |${a.name}| |${a.credits}| |${a.horary}| |${a.capacity}| 
            
+           
+           <button onclick="return confirm('Esta seguro?')" name="materia" id=${a.id}>Aceptar</button>  
              
            
            <hr/>

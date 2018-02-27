@@ -74,6 +74,8 @@ public class ServletLab extends HttpServlet {
                 Estudiante e =  new Estudiante ();
                 int aux = Integer.parseInt(request.getParameter(""));
                 e.setId(aux);
+                //a.setIdMate(request.getParameter("materia"));
+                
 //              
 //                a.setPassword(request.getParameter("password"));
 //                a.setEmail(request.getParameter("email"));
