@@ -30,7 +30,7 @@ public class ServletLab extends HttpServlet {
     private EstudianteFacadeLocal estudianteFacade;
     @EJB
     private MateriaFacadeLocal materiaFacade;
-     @EJB
+    @EJB
     private MatriculaFacadeLocal matriculaFacade;
 
     /**
@@ -59,29 +59,27 @@ public class ServletLab extends HttpServlet {
                 String u = request.getParameter("name");
                 String p = request.getParameter("password");
                 boolean checkLogin = estudianteFacade.checkLogin(u, p);
-
                 if (checkLogin) {
                     request.getSession().setAttribute("login", u);
                     url = "manager.jsp";
                 } else {
                     url = "login.jsp?error=1";
                 }
+            } else if ("enrollment".equals(action)) {
+                System.out.println("Deleteeeeeeeee1");
+                List<Estudiante> findAll = estudianteFacade.findAll();
+                request.getSession().setAttribute("estudiante", findAll);
+                
+                String id = request.getParameter("id");
+                String id2 = request.getParameter("id2");
+                
+//                System.out.println("Fadaaaaa "+ Integer.valueOf(id) + " " + Integer.valueOf(id2));
+                matriculaFacade.matricula(Integer.valueOf(id), Integer.valueOf(id2));
+                url = "ServletLab?action=list";
             } else if ("logout".equals(action)) {
                 request.getSession().removeAttribute("login");
                 url = "login.jsp";
-            } else if ("enrollment".equals(action)) {
-                Matricula a = new Matricula();
-                Estudiante e =  new Estudiante ();
-                int aux = Integer.parseInt(request.getParameter(""));
-                e.setId(aux);
-                //a.setIdMate(request.getParameter("materia"));
-                
-//              
-//                a.setPassword(request.getParameter("password"));
-//                a.setEmail(request.getParameter("email"));
-                matriculaFacade.create(a);
-                url = "login.jsp";
-            }
+            } 
             response.sendRedirect(url);
         } finally {
             out.close();
