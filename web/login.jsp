@@ -33,9 +33,9 @@
                 <form action="ServletLab?action=login" method="post">
                 <table>
                     <tr>
-                        <th><label><b>Username:</b></label></th>
+                        <th><label><b>Id:</b></label></th>
                         <th>
-                        <input type="text" placeholder="Enter Username" class="form-control" name="name" required=""/> 
+                        <input type="text" placeholder="Enter id" class="form-control" name="idE" required=""/> 
                         </th>
                     </tr>
                     <tr>

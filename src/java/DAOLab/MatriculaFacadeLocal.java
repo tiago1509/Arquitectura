@@ -32,5 +32,7 @@ public interface MatriculaFacadeLocal {
 
     void matricula(int codeMate, int id);
 
+  
+
     
 }

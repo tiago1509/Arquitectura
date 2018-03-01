@@ -14,6 +14,7 @@
     <body>
       <jsp:include page="menu.jsp"></jsp:include>
         <h1>BIENVENIDO A LA PAGINA ${login}</h1>
+        <image src="/images/safasfsa.jpg"></image>
     </body>
 </html>
 

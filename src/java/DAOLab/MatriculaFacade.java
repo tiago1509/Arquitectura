@@ -6,7 +6,9 @@
 package DAOLab;
 
 import ModeloLab.Estudiante;
+import ModeloLab.Materia;
 import ModeloLab.Matricula;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,19 +36,19 @@ public class MatriculaFacade extends AbstractFacade<Matricula> implements Matric
     @Override
     public void matricula(int codeMate, int id) {
         Matricula matricula = new Matricula();
-        EstudianteFacade ef = new EstudianteFacade();
-        MateriaFacade mf = new MateriaFacade();
-        
-        matricula.setIdMate(mf.find(codeMate));
-        matricula.setIdEst(ef.find(id));
-        
+        Estudiante ef = new Estudiante();
+        Materia mf = new Materia();
+        MatriculaFacade maf = new MatriculaFacade();
+
+        ef.setId(id);
+        mf.setCode(codeMate);
+
+        matricula.setIdMatri(0);
+
+        matricula.setIdMate(mf);
+        matricula.setIdEst(ef);
+
         em.persist(matricula);
-        
-        
-//        Query q = em.createQuery("insert  into  Matricula (idEst,idMate) values (:codeMate,:id)  ");
-//        q.setParameter("id", id);
-//        q.setParameter("codeMate", codeMate);
-//        q.executeUpdate();
-       }
-    
+    }
+
 }

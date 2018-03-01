@@ -31,14 +31,39 @@ public class EstudianteFacade extends AbstractFacade<Estudiante> implements Estu
     }
 
     @Override
-    public boolean checkLogin(String u, String p) {
-       Query q = em.createQuery("select a from Estudiante a where a.name=:u and a.password=:p");
+    public boolean checkLogin(int u, String p) {
+       Query q = em.createQuery("select a from Estudiante a where a.id=:u and a.password=:p");
        q.setParameter("u",u);
        q.setParameter("p",p);
        return q.getResultList().size()>0;
-       
-               
     }
+
+    @Override
+    public byte[] getImage(int idEst) {
+        /*Estudiante est = null;
+        Query q = em.createQuery("select a from Estudiante a where a.id=:idEst");
+        q.setParameter("idEst", idEst);
+        est = (Estudiante) q.getSingleResult();
+        return est.getPhoto();*/
+        Estudiante est = em.find(Estudiante.class, idEst);
+        return est.getPhoto();
+    }
+
+    @Override
+    public void setImage(int idEst, byte[] photo) {
+        Estudiante est = em.find(Estudiante.class, idEst);
+        
+        em.getTransaction().begin();
+        est.setPhoto(photo);
+        em.getTransaction().commit();
+    }
+    
+    
+    
+    
+    
+    
+   
     
     
 }

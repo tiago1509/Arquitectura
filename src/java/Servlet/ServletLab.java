@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -53,12 +53,12 @@ public class ServletLab extends HttpServlet {
             String url = "index.jsp";
             if ("list".equals(action)) {
                 List<Materia> findAll = materiaFacade.findAll();
-                request.getSession().setAttribute("materia", findAll);
+                request.getSession().setAttribute("materia",findAll);
                 url = "listMaterias.jsp";
             } else if ("login".equals(action)) {
-                String u = request.getParameter("name");
+                String u = request.getParameter("idE");
                 String p = request.getParameter("password");
-                boolean checkLogin = estudianteFacade.checkLogin(u, p);
+                boolean checkLogin = estudianteFacade.checkLogin(Integer.valueOf(u), p);
                 if (checkLogin) {
                     request.getSession().setAttribute("login", u);
                     url = "manager.jsp";
@@ -66,20 +66,26 @@ public class ServletLab extends HttpServlet {
                     url = "login.jsp?error=1";
                 }
             } else if ("enrollment".equals(action)) {
-                System.out.println("Deleteeeeeeeee1");
-                List<Estudiante> findAll = estudianteFacade.findAll();
-                request.getSession().setAttribute("estudiante", findAll);
-                
-                String id = request.getParameter("id");
-                String id2 = request.getParameter("id2");
-                
-//                System.out.println("Fadaaaaa "+ Integer.valueOf(id) + " " + Integer.valueOf(id2));
-                matriculaFacade.matricula(Integer.valueOf(id), Integer.valueOf(id2));
+
+                String idM = request.getParameter("id");
+                String idE = (String) request.getSession().getAttribute("login");
+
+                System.out.println(idE);
+                System.out.println(idM);
+
+                matriculaFacade.matricula(Integer.valueOf(idM), Integer.valueOf(idE));
                 url = "ServletLab?action=list";
-            } else if ("logout".equals(action)) {
+            } else if ("listMaterias".equals(action)) {
+                List<Matricula> findAll = matriculaFacade.findAll();
+                request.getSession().setAttribute("matricula", findAll);
+                url = "listMatricula.jsp";
+             
+            }
+            
+            else if ("logout".equals(action)) {
                 request.getSession().removeAttribute("login");
                 url = "login.jsp";
-            } 
+            }
             response.sendRedirect(url);
         } finally {
             out.close();
